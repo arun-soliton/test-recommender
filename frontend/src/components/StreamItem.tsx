@@ -1,4 +1,6 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import type { SSEEvent } from "../types";
 import { DatabaseIcon, MessageIcon, WrenchIcon } from "./icons";
 
@@ -11,12 +13,22 @@ export default function StreamItem({ event }: Props) {
 
   if (event.type === "thinking") {
     return (
-      <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
-        <div className="mb-1.5 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-gray-400">
+      <div className="rounded-lg border border-violet-200 bg-violet-50 px-4 py-3">
+        <div className="mb-2 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-violet-400">
           <MessageIcon />
           Agent reasoning
         </div>
-        <p className="whitespace-pre-wrap text-sm text-gray-600">{event.data.text}</p>
+        <div className="prose prose-sm max-w-none text-violet-900
+          prose-headings:text-violet-900 prose-headings:font-semibold
+          prose-strong:text-violet-900
+          prose-code:text-violet-800 prose-code:bg-violet-100 prose-code:rounded prose-code:px-1
+          prose-pre:bg-violet-100 prose-pre:text-violet-800
+          prose-ul:text-violet-900 prose-ol:text-violet-900
+          prose-li:marker:text-violet-400">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {event.data.text}
+          </ReactMarkdown>
+        </div>
       </div>
     );
   }
