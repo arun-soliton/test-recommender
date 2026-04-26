@@ -14,7 +14,7 @@ let itemCounter = 0;
 const STREAM_VISIBLE: SSEEvent["type"][] = [
   "thinking",
   "tool_use",
-  "tool_result",
+  "test_cases",
   "error",
 ];
 

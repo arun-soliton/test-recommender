@@ -43,3 +43,9 @@ export interface AnalysisSummary {
   total_tests: number;
   pr_scope: string;
 }
+
+export interface ChatMessage {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+}

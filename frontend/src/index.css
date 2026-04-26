@@ -1,9 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-gray-50 text-gray-900 antialiased;
-  }
+:root {
+  --bg: #fafafb;
+  --surface: #ffffff;
+  --surface-alt: #f6f6f9;
+  --surface-hover: #f0f0f5;
+  --border: #ebebf0;
+  --border-strong: #dcdce4;
+  --text: #15151c;
+  --text-2: #4a4a58;
+  --text-3: #8a8a99;
+  --text-4: #b4b4c2;
+  --accent: #6d4ef2;
+  --accent-soft: #f1edff;
+  --accent-softer: #faf8ff;
+  --accent-border: #ddd2ff;
+  --green: #16a34a;
+  --green-soft: #e7f7ee;
+  --amber: #d97706;
+  --amber-soft: #fdf3e3;
+  --red: #dc2626;
+  --red-soft: #fdecec;
+  --blue: #2563eb;
+  --blue-soft: #e8efff;
+  --shadow-sm: 0 1px 2px rgba(20, 20, 35, 0.04), 0 1px 3px rgba(20, 20, 35, 0.06);
+  --shadow: 0 2px 6px rgba(20, 20, 35, 0.05), 0 8px 24px rgba(20, 20, 35, 0.06);
+  --shadow-lg: 0 10px 30px rgba(20, 20, 35, 0.10), 0 20px 60px rgba(20, 20, 35, 0.10);
 }
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Thin scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@keyframes chatIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+.chat-panel-enter { animation: chatIn 0.18s ease-out; }

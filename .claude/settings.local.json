@@ -7,7 +7,8 @@
       "Bash(python3 -c \"import claude_agent_sdk; print\\(claude_agent_sdk.__version__\\)\")",
       "Bash(npm --version)",
       "Bash(pip list *)",
-      "Bash(python -c \"from mcp.server.fastmcp import FastMCP; print\\('FastMCP available'\\)\")"
+      "Bash(python -c \"from mcp.server.fastmcp import FastMCP; print\\('FastMCP available'\\)\")",
+      "Bash(powershell *)"
     ]
   }
 }

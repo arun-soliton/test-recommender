@@ -16,12 +16,20 @@ from claude_agent_sdk import (
 )
 
 BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
-AGENT_TIMEOUT = 300  # seconds
 
 # Built-in Claude Agent SDK tool names — anything else is treated as a custom MCP tool
 _SDK_BUILTINS = {
-    "Read", "Write", "Edit", "Bash", "Glob", "Grep",
-    "WebSearch", "WebFetch", "AskUserQuestion", "Agent", "Monitor",
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "WebSearch",
+    "WebFetch",
+    "AskUserQuestion",
+    "Agent",
+    "Monitor",
 }
 
 
@@ -96,13 +104,12 @@ async def run_agent(
                 permission_mode="acceptEdits",
             ),
         ):
-            if time.monotonic() - start > AGENT_TIMEOUT:
-                yield {"type": "error", "data": {"message": "Agent timed out after 5 minutes"}}
-                return
-
             if isinstance(message, SystemMessage) and message.subtype == "init":
                 session_id = message.data.get("session_id")
-                yield {"type": "session_start", "data": {"session_id": session_id or ""}}
+                yield {
+                    "type": "session_start",
+                    "data": {"session_id": session_id or ""},
+                }
 
             elif isinstance(message, AssistantMessage):
                 for block in message.content:
@@ -115,14 +122,18 @@ async def run_agent(
                             "data": {
                                 "tool_name": block.name,
                                 "tool_type": _tool_type(block.name),
-                                "input_summary": json.dumps(block.input, default=str)[:300],
+                                "input_summary": json.dumps(block.input, default=str)[
+                                    :300
+                                ],
                             },
                         }
 
                     elif hasattr(block, "tool_use_id") and hasattr(block, "content"):
                         content = block.content
                         if isinstance(content, list):
-                            output = " ".join(getattr(b, "text", str(b)) for b in content)
+                            output = " ".join(
+                                getattr(b, "text", str(b)) for b in content
+                            )
                         else:
                             output = str(content)
                         yield {
@@ -146,7 +157,10 @@ async def run_agent(
                         },
                     }
                 else:
-                    yield {"type": "error", "data": {"message": f"Agent ended with: {message.subtype}"}}
+                    yield {
+                        "type": "error",
+                        "data": {"message": f"Agent ended with: {message.subtype}"},
+                    }
 
     except Exception as exc:
         yield {"type": "error", "data": {"message": str(exc)}}
