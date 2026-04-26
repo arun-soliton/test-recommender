@@ -1,0 +1,12 @@
+[project]
+name = "test-recommender-backend"
+version = "0.1.0"
+description = "Test Recommendation System — FastAPI backend"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "python-dotenv>=1.0.0",
+    "slowapi>=0.1.9",
+    "claude-agent-sdk>=0.1.68",
+]
